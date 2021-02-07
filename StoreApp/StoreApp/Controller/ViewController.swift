@@ -29,7 +29,7 @@ class ViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self,
                     selector: #selector(completedJsonParsing),
-                    name: NSNotification.Name(rawValue: "jsonParsing"),
+                    name: NSNotification.Name(rawValue: "\(Request.RequestString.requestProduct)"),
                     object: nil)
         
         addCollectionView()

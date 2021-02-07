@@ -14,6 +14,17 @@ class Request {
         case failure(Failure)
     }
     
+    enum RequestString : CustomStringConvertible {
+        case requestProduct, requestProductDetail
+        
+        var description: String {
+            switch self {
+            case .requestProduct: return "requestProduct"
+            case .requestProductDetail: return "requestProductDetail"
+            }
+        }
+    }
+    
     private let json = Json()
     
     func requestProduct(productType: ProductType) {
@@ -31,7 +42,7 @@ class Request {
                 let result = self.json.parsingProduct(jsonData: data ?? Data())
                 switch result {
                 case .success(let resultData):
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "jsonParsing"),object: nil, userInfo: ["products" : resultData, "productTypeValue" : productType.rawValue])
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "\(RequestString.requestProduct)"),object: nil, userInfo: ["products" : resultData, "productTypeValue" : productType.rawValue])
                 case .failure(let error):
                     print(error)
                 }
@@ -53,7 +64,7 @@ class Request {
                 let result = self.json.parsingProductDetail(jsonData: data ?? Data())
                 switch result {
                 case .success(let resultData):
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "jsonParsingProductDetail"),object: nil, userInfo: ["productDetail" : resultData])
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "\(RequestString.requestProductDetail)"),object: nil, userInfo: ["productDetail" : resultData])
                 case .failure(let error):
                     print(error)
                 }

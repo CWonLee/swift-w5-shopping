@@ -17,7 +17,7 @@ class ProductViewController: UIViewController {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self,
                     selector: #selector(completedJsonParsing),
-                    name: NSNotification.Name(rawValue: "jsonParsingProductDetail"),
+                    name: NSNotification.Name(rawValue: "\(Request.RequestString.requestProductDetail)"),
                     object: nil)
         
         mainScrollView.uiButtonDeleage = self
